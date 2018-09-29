@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
+import { connect } from "react-redux";
+import { addModel } from "./actions/pcModels";
 
 const data = {
   "Ivel Z3": {
@@ -43,7 +45,6 @@ class App extends Component {
         </div>
       );
 
-    if (pcModels)
       return (
         <div className="App">
           <select onChange={this.updateSelection}>
@@ -54,9 +55,21 @@ class App extends Component {
               </option>
             ))}
           </select>
+          <button onClick={this.props.addModel(this.state.selectedPc)}>
+            Add
+          </button>
         </div>
       );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    pcModels: state.pcModels
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { addModel }
+)(App);
