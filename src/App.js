@@ -55,7 +55,7 @@ class App extends Component {
               </option>
             ))}
           </select>
-          <button onClick={this.props.addModel(this.state.selectedPc)}>
+          <button onClick={() => this.props.addModel(this.state.selectedPc)}>
             Add
           </button>
         </div>
