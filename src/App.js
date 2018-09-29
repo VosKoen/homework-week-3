@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { connect } from "react-redux";
 import { addModel } from "./actions/pcModels";
-import ModelDetails from './components/ModelDetails'
+import ModelDetails from "./components/ModelDetails";
 
 const data = {
   "Ivel Z3": {
@@ -34,8 +34,11 @@ class App extends Component {
     selectedPc: ""
   };
 
+  //In the following function I also add the name of the PC to the state so I can use that later (I added this when I had to complete step 4).
   updateSelection = event => {
-    this.setState({ selectedPc: data[event.target.value] });
+    this.setState({
+      selectedPc: { ...data[event.target.value], name: event.target.value }
+    });
   };
 
   render() {
@@ -46,22 +49,22 @@ class App extends Component {
         </div>
       );
 
-      return (
-        <div className="App">
-          <ModelDetails models={this.props.models}/>
-          <select onChange={this.updateSelection}>
-            <option value="">-- pick a model --</option>
-            {pcModels.map(model => (
-              <option key={model} value={model}>
-                {model} ({data[model].year})
-              </option>
-            ))}
-          </select>
-          <button onClick={() => this.props.addModel(this.state.selectedPc)}>
-            Add
-          </button>
-        </div>
-      );
+    return (
+      <div className="App">
+        <ModelDetails models={this.props.models} />
+        <select onChange={this.updateSelection}>
+          <option value="">-- pick a model --</option>
+          {pcModels.map(model => (
+            <option key={model} value={model}>
+              {model} ({data[model].year})
+            </option>
+          ))}
+        </select>
+        <button onClick={() => this.props.addModel(this.state.selectedPc)}>
+          Add
+        </button>
+      </div>
+    );
   }
 }
 

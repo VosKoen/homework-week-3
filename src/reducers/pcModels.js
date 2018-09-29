@@ -1,4 +1,4 @@
-import { ADD_MODEL } from '../actions/pcModels'
+import { ADD_MODEL } from "../actions/pcModels";
 
 export default (state = [], action = {}) => {
   switch (action.type) {
