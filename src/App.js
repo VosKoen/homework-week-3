@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { connect } from "react-redux";
 import { addModel } from "./actions/pcModels";
+import ModelDetails from './components/ModelDetails'
 
 const data = {
   "Ivel Z3": {
@@ -34,7 +35,7 @@ class App extends Component {
   };
 
   updateSelection = event => {
-    this.setState({ selectedPc: event.target.value });
+    this.setState({ selectedPc: data[event.target.value] });
   };
 
   render() {
@@ -47,10 +48,11 @@ class App extends Component {
 
       return (
         <div className="App">
+          <ModelDetails models={this.props.models}/>
           <select onChange={this.updateSelection}>
             <option value="">-- pick a model --</option>
             {pcModels.map(model => (
-              <option value={model}>
+              <option key={model} value={model}>
                 {model} ({data[model].year})
               </option>
             ))}
@@ -65,7 +67,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    pcModels: state.pcModels
+    models: state.models
   };
 };
 
