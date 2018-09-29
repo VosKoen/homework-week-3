@@ -27,6 +27,14 @@ const data = {
 const pcModels = Object.keys(data);
 
 class App extends Component {
+  state = {
+    selectedPc: ""
+  };
+
+  updateSelection = event => {
+    this.setState({ selectedPc: event.target.value });
+  };
+
   render() {
     if (!pcModels)
       return (
@@ -38,9 +46,13 @@ class App extends Component {
     if (pcModels)
       return (
         <div className="App">
-          <select>
+          <select onChange={this.updateSelection}>
             <option value="">-- pick a model --</option>
-            {pcModels.map(model => <option value={model}>{model} ({data[model].year})</option>)}
+            {pcModels.map(model => (
+              <option value={model}>
+                {model} ({data[model].year})
+              </option>
+            ))}
           </select>
         </div>
       );
